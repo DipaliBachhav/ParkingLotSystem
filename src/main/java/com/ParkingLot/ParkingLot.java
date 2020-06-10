@@ -7,19 +7,21 @@ public class ParkingLot {
     //public int size=5;
 
     LinkedHashMap<String,Object> parkingLot = new LinkedHashMap<>();
+    AirportSecurity airportSecurity = new AirportSecurity();
 
     public ParkingLot() {
     }
-    public boolean park(Vehicle vehicle) throws ParkingLotException {
+    public void park(Vehicle vehicle) throws  ParkingLotException {
+        if (parkingLot.containsKey(vehicle.getVehicleNumber()))
+            throw new ParkingLotException(ParkingLotException.ExceptionType.VEHICLE_ALREADY_PARK,"This vehicle already park");
         if (parkingLot.size()%2==0 && parkingLot.size() != 0) {
-            parkingLot = null;
-            throw new ParkingLotException("Parking lot is full");
+            parkingLot.put(vehicle.getVehicleNumber(),vehicle);
+            airportSecurity.setParkingSlotFullOrNot("parking lot is full");
+            throw new ParkingLotException(ParkingLotException.ExceptionType.PARKING_LOT_IS_FULL,airportSecurity.getParkingSlotFullOrNot());
+        }else {
+            parkingLot.put(vehicle.getVehicleNumber(),vehicle);
         }
-        this.vehicle = vehicle;
-        parkingLot.put(vehicle.getVehicleNumber(),vehicle);
-        System.out.println(parkingLot.size());
-        return false;
-    }
+        }
 
     public boolean isVehiclePark(Object vehicle) {
         if (this.vehicle.equals(vehicle))
@@ -32,7 +34,6 @@ public class ParkingLot {
         if (this.vehicle.equals(vehicle)){
             this.vehicle = null;
             parkingLot.remove(vehicle.getVehicleNumber());
-
             return true;
         }
         else return false;

@@ -45,6 +45,21 @@ public class ParkingLotTest {
             Assert.assertEquals("Parking lot is full",e.getMessage());
         }
     }
+
+    @Test
+    public void givenParkingLotIsFull_whenInformAirportSecurity_ThenReturnTrue() {
+        try {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setVehicleName("suzuki");vehicle.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle);
+            vehicle.setVehicleName("suzuki");vehicle.setVehicleNumber("MH4R4547");
+            parkingLot.park(vehicle);
+            vehicle.setVehicleName("suzuki");vehicle.setVehicleNumber("MH4R4548");
+            parkingLot.park(vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("parking lot is full",e.getMessage());
+        }
+    }
 }
 
 
