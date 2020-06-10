@@ -8,10 +8,11 @@ public class ParkingLotTest {
 
     ParkingLot parkingLot;
     Vehicle vehicle;
+
     @Before
-    public void setUp(){
-        parkingLot=new ParkingLot();
-        vehicle=new Vehicle();
+    public void setUp() {
+        parkingLot = new ParkingLot();
+        vehicle = new Vehicle();
     }
 
     @Test
@@ -28,21 +29,23 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_whenUnParked_ShouldReturnTrue() throws ParkingLotException {
         parkingLot.park(vehicle);
-        boolean isParked=parkingLot.unPark(vehicle);
-        Assert.assertTrue(isParked);
+        String result = parkingLot.park(vehicle);
+        Assert.assertEquals("parking lot is full", result);
     }
 
     @Test
     public void givenParkingLot_whenFull_ThenReturnTrue() {
         try {
             Vehicle vehicle = new Vehicle();
-            vehicle.setVehicleName("sujuki");vehicle.setVehicleNumber("MH4R4545");
+            vehicle.setVehicleName("sujuki");
+            vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
-            vehicle.setVehicleName("Maruti");vehicle.setVehicleNumber("MH4R4547");
+            vehicle.setVehicleName("Maruti");
+            vehicle.setVehicleNumber("MH4R4547");
             parkingLot.park(vehicle);
             parkingLot.park(vehicle);
         } catch (ParkingLotException e) {
-            Assert.assertEquals("Parking lot is full",e.getMessage());
+            Assert.assertEquals("Parking lot is full", e.getMessage());
         }
     }
 
@@ -50,14 +53,33 @@ public class ParkingLotTest {
     public void givenParkingLotIsFull_whenInformAirportSecurity_ThenReturnTrue() {
         try {
             Vehicle vehicle = new Vehicle();
-            vehicle.setVehicleName("suzuki");vehicle.setVehicleNumber("MH4R4545");
+            vehicle.setVehicleName("suzuki");
+            vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
-            vehicle.setVehicleName("suzuki");vehicle.setVehicleNumber("MH4R4547");
+            vehicle.setVehicleName("suzuki");
+            vehicle.setVehicleNumber("MH4R4547");
             parkingLot.park(vehicle);
-            vehicle.setVehicleName("suzuki");vehicle.setVehicleNumber("MH4R4548");
+            vehicle.setVehicleName("suzuki");
+            vehicle.setVehicleNumber("MH4R4548");
             parkingLot.park(vehicle);
         } catch (ParkingLotException e) {
-            Assert.assertEquals("parking lot is full",e.getMessage());
+            Assert.assertEquals("parking lot is full", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenAgainParkingSpaceAvailable_WhenInformOwner_ThenReturnTrue() {
+        try {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setVehicleName("suzuki");
+            vehicle.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle);
+            vehicle.setVehicleName("suzuki");
+            vehicle.setVehicleNumber("MH4R4547");
+            parkingLot.park(vehicle);
+            String result = parkingLot.unPark(vehicle);
+            Assert.assertEquals("space available", result);
+        } catch (ParkingLotException e) {
         }
     }
 }
