@@ -4,17 +4,20 @@ import java.util.LinkedHashMap;
 
 public class ParkingLot {
     private Object vehicle;
+    //public int size=5;
+
     LinkedHashMap<String,Object> parkingLot = new LinkedHashMap<>();
 
     public ParkingLot() {
     }
     public boolean park(Vehicle vehicle) throws ParkingLotException {
-        if (parkingLot.size() != 0) {
+        if (parkingLot.size()%2==0 && parkingLot.size() != 0) {
             parkingLot = null;
             throw new ParkingLotException("Parking lot is full");
         }
         this.vehicle = vehicle;
         parkingLot.put(vehicle.getVehicleNumber(),vehicle);
+        System.out.println(parkingLot.size());
         return false;
     }
 

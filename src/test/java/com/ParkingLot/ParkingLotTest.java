@@ -17,8 +17,6 @@ public class ParkingLotTest {
     @Test
     public void givenVehicle_whenParked_ThenReturnTrue() {
         try {
-            vehicle.setVehicleName("Honda");
-            vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
             boolean result = parkingLot.isVehiclePark(vehicle);
             Assert.assertTrue(result);

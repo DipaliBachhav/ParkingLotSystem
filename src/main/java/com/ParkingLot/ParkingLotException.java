@@ -6,8 +6,8 @@ package com.ParkingLot;
         }
         ExceptionType type;
 
-        public ParkingLotException(ExceptionType type,String message) {
+        public ParkingLotException(String message) {
             super(message);
-            this.type = type;
+            //this.type = type;
         }
 }
