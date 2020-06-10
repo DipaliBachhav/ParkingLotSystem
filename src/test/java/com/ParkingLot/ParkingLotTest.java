@@ -17,6 +17,8 @@ public class ParkingLotTest {
     @Test
     public void givenVehicle_whenParked_ThenReturnTrue() {
         try {
+            vehicle.setVehicleName("Honda");
+            vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
             boolean result = parkingLot.isVehiclePark(vehicle);
             Assert.assertTrue(result);
@@ -32,6 +34,19 @@ public class ParkingLotTest {
         Assert.assertTrue(isParked);
     }
 
+    @Test
+    public void givenParkingLot_whenFull_ThenReturnTrue() {
+        try {
+            Vehicle vehicle = new Vehicle();
+            vehicle.setVehicleName("sujuki");vehicle.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle);
+            vehicle.setVehicleName("Maruti");vehicle.setVehicleNumber("MH4R4547");
+            parkingLot.park(vehicle);
+            parkingLot.park(vehicle);
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("Parking lot is full",e.getMessage());
+        }
+    }
 }
 
 

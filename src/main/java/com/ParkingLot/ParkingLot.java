@@ -9,7 +9,7 @@ public class ParkingLot {
     public ParkingLot() {
     }
     public boolean park(Vehicle vehicle) throws ParkingLotException {
-        if (parkingLot.size()%2==0 && parkingLot.size() != 0) {
+        if (parkingLot.size() != 0) {
             parkingLot = null;
             throw new ParkingLotException("Parking lot is full");
         }
