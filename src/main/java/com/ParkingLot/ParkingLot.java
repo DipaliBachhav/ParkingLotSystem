@@ -22,7 +22,6 @@ public class ParkingLot {
         } else {
             parkingLot.put(vehicle.getVehicleNumber(), vehicle);
         }
-        //System.out.println(parkingLot.size());
         return "Added";
 
     }
