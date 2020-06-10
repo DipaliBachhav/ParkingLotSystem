@@ -7,25 +7,31 @@ import org.junit.Test;
 public class ParkingLotTest {
 
     ParkingLot parkingLot;
-    Object vehicle;
+    Vehicle vehicle;
     @Before
     public void setUp(){
         parkingLot=new ParkingLot();
-        vehicle=new Object();
+        vehicle=new Vehicle();
     }
 
     @Test
-    public void givenAVehicle_whenParked_ShouldReturnTrue() {
-        boolean isParked=parkingLot.park(vehicle);
-        Assert.assertTrue(isParked);
+    public void givenVehicle_whenParked_ThenReturnTrue() {
+        try {
+            parkingLot.park(vehicle);
+            boolean result = parkingLot.isVehiclePark(vehicle);
+            Assert.assertTrue(result);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void givenAVehicle_whenUnParked_ShouldReturnTrue() {
+    public void givenAVehicle_whenUnParked_ShouldReturnTrue() throws ParkingLotException {
         parkingLot.park(vehicle);
         boolean isParked=parkingLot.unPark(vehicle);
         Assert.assertTrue(isParked);
     }
+
 }
 
 
