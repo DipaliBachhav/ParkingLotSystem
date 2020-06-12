@@ -89,6 +89,20 @@ public class ParkingLotTest {
             Assert.assertEquals("This vehicle not park in my parking lot",e.getMessage());
         }
     }
+
+    @Test
+    public void givenCarFind_WhenParked_ThenReturnCarPosition() {
+        try {
+            vehicle.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle);
+            vehicle.setVehicleNumber("MH4R4547");
+            parkingLot.park(vehicle);
+            String result = parkingLot.isVehiclePark(vehicle);
+            Assert.assertEquals("vehicle park in lot number 2",result);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
