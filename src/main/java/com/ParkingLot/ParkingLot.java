@@ -11,21 +11,20 @@ public class ParkingLot {
 
     LinkedHashMap<String,Object> parkingLot = new LinkedHashMap<>();
     AirportSecurity airportSecurity = new AirportSecurity();
+    Owner owner = new Owner();
 
 
-    public void park(Vehicle vehicle) throws ParkingLotException {
+    public String park(Vehicle vehicle) throws ParkingLotException {
         if (parkingLot.containsKey(vehicle.getVehicleNumber()))
             throw new ParkingLotException(ParkingLotException.ExceptionType.VEHICLE_ALREADY_PARK, "This vehicle already park");
+        parkingLot.put(vehicle.getVehicleNumber(),vehicle);
+        owner.setParkingCharge(vehicle.getVehicleNumber()+" this vehicle charge Rs.10");
         if (capacity == 0 && parkingLot.size() != 0) {
-        //if(parkingLot.size()<capacity){
-            parkingLot.put(vehicle.getVehicleNumber(), vehicle);
-            airportSecurity.setParkingSlotFullOrNot("Parking lot is full");
-            System.out.println(parkingLot.size());
-            throw new ParkingLotException(ParkingLotException.ExceptionType.PARKING_LOT_IS_FULL, airportSecurity.getParkingSlotFullOrNot());
-        } else {
-            parkingLot.put(vehicle.getVehicleNumber(), vehicle);
-          //  System.out.println(parkingLot.size());
+            new AirportSecurity().setParkingSlotFullOrNot("parking lot is full");
+            owner.setParkingFullOrNot("parking lot is full");
+            return "parking lot is full";
         }
+        return "park vehicle";
     }
 
     public String  isVehiclePark(Vehicle vehicle) throws ParkingLotException {

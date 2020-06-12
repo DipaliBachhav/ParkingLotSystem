@@ -103,6 +103,17 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenVehicleParkInLot_WhenCharge_ThenReturnTrue() {
+        try {
+            vehicle.setVehicleNumber("MH4R4545");
+            String result = parkingLot.park(vehicle);
+            Assert.assertEquals("park vehicle",result);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
