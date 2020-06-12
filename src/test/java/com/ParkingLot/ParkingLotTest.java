@@ -20,14 +20,14 @@ public class ParkingLotTest {
         try {
             vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
-            boolean result = parkingLot.isVehiclePark(vehicle);
-            Assert.assertTrue(result);
+            String result = parkingLot.isVehiclePark(vehicle);
+            Assert.assertEquals("vehicle park in lot number 1",result);
         } catch (ParkingLotException e) {
         }
     }
 
     @Test
-    public void givenAVehicle_whenUnParked_ShouldReturnTrue(){
+    public void givenAVehicle_whenUnParked_ShouldReturnTrue() {
         try {
             vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
@@ -45,7 +45,7 @@ public class ParkingLotTest {
             vehicle.setVehicleNumber("MH4R4549");
             parkingLot.park(vehicle);
         } catch (ParkingLotException e) {
-            Assert.assertEquals("Parking lot is full",e.getMessage());
+            Assert.assertEquals("Parking lot is full", e.getMessage());
         }
     }
 
@@ -77,7 +77,20 @@ public class ParkingLotTest {
         } catch (ParkingLotException e) {
         }
     }
+
+    @Test
+    public void givenVehicleNotPresentInParkingLot_WhenUnPark_ThenThrowException() {
+        try {
+            vehicle.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle);
+            vehicle.setVehicleNumber("MH4R4547");
+            String  result=parkingLot.unPark(vehicle);;
+        } catch (ParkingLotException e) {
+            Assert.assertEquals("This vehicle not park in my parking lot",e.getMessage());
+        }
+    }
 }
+
 
 
 
