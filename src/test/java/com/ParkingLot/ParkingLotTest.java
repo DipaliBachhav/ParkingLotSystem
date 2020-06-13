@@ -9,6 +9,7 @@ public class ParkingLotTest {
     ParkingLot parkingLot;
     Vehicle vehicle;
     Owner owner;
+    ParkingLotAttendant attendant;
     Integer capacity = 3;
     int slot = 1;
 
@@ -133,14 +134,14 @@ public class ParkingLotTest {
             Vehicle vehicle1 = new Vehicle();
             vehicle1.setVehicleNumber("MH4R4549");
             parkingLot.park(vehicle1);
-            Assert.assertEquals("Full Lot A",owner.getParkingFull());
+            Assert.assertEquals("Full Lot 1",owner.getParkingFull());
             Vehicle vehicle2 = new Vehicle();
             vehicle2.setVehicleNumber("MH4R4548");
             parkingLot.park(vehicle2);
             Vehicle vehicle3 = new Vehicle();
             vehicle3.setVehicleNumber("MH4R4547");
             parkingLot.park(vehicle3);
-            Assert.assertEquals("Full Lot B",owner.getParkingFull());
+            Assert.assertEquals("Full Lot 2",owner.getParkingFull());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
