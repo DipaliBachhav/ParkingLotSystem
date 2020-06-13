@@ -7,15 +7,21 @@ import java.util.List;
 
 public class ParkingLot {
     private String isFull;
-    int parkingLotSize = 100;
-    Integer capacity = 3;
+    //int parkingLotSize = 100;
+    Integer capacity;
+    int slot = 2;
+    char slotName = 'A';
+
     Integer key = 0;
 
-    public ParkingLot() {
-        for (Integer key = 1; key<=capacity; key++){
-            parkingLot.put(key,null);
+    public ParkingLot(Integer capacity, int slot) {
+        this.capacity = capacity;
+        this.slot = slot;
+        for (Integer key = 1; key <= capacity; key++) {
+            parkingLot.put(key, null);
         }
     }
+
     LinkedHashMap<Integer, Object> parkingLot = new LinkedHashMap<>();
     AirportSecurity airportSecurity = new AirportSecurity();
     private List<Observer> observableList = new ArrayList<>();
@@ -36,30 +42,30 @@ public class ParkingLot {
         if (parkingLot.containsValue(vehicle))
             throw new ParkingLotException(ParkingLotException.ExceptionType.VEHICLE_ALREADY_PARK, "This vehicle already park");
         key = vehicleParkLotNumber();
-        parkingLot.replace(key,vehicle);
+        parkingLot.replace(key, vehicle);
         setStatus("this vehicle charge Rs.10");
-        if (parkingLotSize == 0 && parkingLot.size() != 0)
-            if (key%3 == 0)
-                setStatus("Full");
-            return "park vehicle";
+        //if (parkingLotSize == 0 && parkingLot.size() != 0)
+            if (key % slot == 0 || key == capacity) {
+                setStatus("Full Lot " + slotName);
+                slotName++;
+            }
+        return "park vehicle";
     }
 
     public String  isVehiclePark(Vehicle vehicle) throws ParkingLotException {
-        if (parkingLot.containsValue(vehicle)) {
-            int lotPosition = occupiedParkingLot(vehicle);
-            return "vehicle park in lot number "+lotPosition;
-        }
+        if (parkingLot.containsValue(vehicle))
+            return "vehicle park in lot number "+occupiedParkingLot(vehicle);
         else {
             throw new ParkingLotException(ParkingLotException.ExceptionType.VEHICLE_NOT_PARK,
                     "This vehicle not park in my parking lot");
         }
     }
     public int vehicleParkLotNumber(){
-        Integer k=1;
-        for ( ; k<=capacity ; k++)
+        Integer k;
+        for (k=1 ; k<=capacity ; k++)
             if (parkingLot.get(k) == null)
                 return k;
-        return k;
+        return k+1;
     }
     public int occupiedParkingLot(Vehicle vehicle) {
         int k = 0;

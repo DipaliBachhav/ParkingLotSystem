@@ -9,10 +9,12 @@ public class ParkingLotTest {
     ParkingLot parkingLot;
     Vehicle vehicle;
     Owner owner;
+    Integer capacity = 3;
+    int slot = 1;
 
     @Before
     public void setUp() {
-        parkingLot = new ParkingLot();
+        parkingLot = new ParkingLot(capacity,slot);
         vehicle = new Vehicle();
         owner = new Owner();
 
@@ -114,6 +116,31 @@ public class ParkingLotTest {
             vehicle.setVehicleNumber("MH4R4545");
             parkingLot.park(vehicle);
             Assert.assertEquals("this vehicle charge Rs.10",owner.getParkingCharge());
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenParkingAttendant_WhenEvenlyDistribution_ThenReturn() {
+        try {
+            this.capacity = 4;
+            this.slot = 2;
+            parkingLot=new ParkingLot(capacity,slot);
+            parkingLot.addObserver(owner);
+            vehicle.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle);
+            Vehicle vehicle1 = new Vehicle();
+            vehicle1.setVehicleNumber("MH4R4549");
+            parkingLot.park(vehicle1);
+            Assert.assertEquals("Full Lot A",owner.getParkingFull());
+            Vehicle vehicle2 = new Vehicle();
+            vehicle2.setVehicleNumber("MH4R4548");
+            parkingLot.park(vehicle2);
+            Vehicle vehicle3 = new Vehicle();
+            vehicle3.setVehicleNumber("MH4R4547");
+            parkingLot.park(vehicle3);
+            Assert.assertEquals("Full Lot B",owner.getParkingFull());
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
