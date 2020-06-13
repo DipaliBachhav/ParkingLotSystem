@@ -146,7 +146,25 @@ public class ParkingLotTest {
         }
     }
 
+    @Test
+    public void givenParkMyCar_WhenNearestFreeSpace_ThenParkCar() {
+        try {
+            parkingLot.addObserver(owner);
+            Vehicle vehicle1 = new Vehicle();
+            vehicle1.setVehicleNumber("MH4R4545");
+            parkingLot.park(vehicle1);
+            Vehicle vehicle2 = new Vehicle();
+            vehicle2.setVehicleNumber("MH4R4547");
+            parkingLot.park(vehicle2);
+            vehicle.setVehicleNumber("MH4R4548");
+            String result = parkingLot.park(vehicle);
+            Assert.assertEquals("park vehicle", result);
+        } catch (ParkingLotException e) {
+        }
+    }
 }
+
+
 
 
 
